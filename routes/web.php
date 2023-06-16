@@ -21,7 +21,7 @@ Route::get('/', function () {
 Route::prefix('/blog')->name("blog.")->group(function (){
     Route::get('/', function(Request $request){
 
-        $posts =  \App\Models\Post::paginate(1, ['id', 'title']);
+        $posts =  \App\Models\Post::where('id','>', 0)->limit(1)->get();
         /*$post->title = 'Mon premier article1';
         $post->slug =  'mon-premier-article1';
         $post->content =  'Mon contenu 2';
