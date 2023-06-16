@@ -30,25 +30,27 @@ Route::prefix('/blog')->name("blog.")->group(function (){
         \App\Models\Post::all();
         */
 
-        $posts =  \App\Models\Post::create([
+        /*$posts =  \App\Models\Post::create([
             'title' => 'Mon nouveau titre',
             'slug' => 'nouveau titre',
             'content' => 'APANYAN'
-        ]);
+        ]);*/
 
-        $posts->save();
+      /*  $posts->save();*/
 
 
 
-        return $posts;
+        return  \App\Models\Post::paginate(25);
 
     })->name('index');
 
     Route::get('/{slug}-{id}', function (string $slug, string $id) {
-        return [
-            "slug" => $slug,
-            "id" => $id
-        ];
+        $post = \App\Models\Post::findorFail($id);
+        if ($post->slug != $slug){
+            return to_route('blog.show', ['slug' => $post ->slug, 'id'=> $post->id]);
+        }
+
+        return $post;
     })->where([
         "id" => '[0-9]+',
         "slug" => '[a-zA-Z0-9\-]+'
