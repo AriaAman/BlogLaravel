@@ -21,13 +21,15 @@ Route::get('/', function () {
 Route::prefix('/blog')->name("blog.")->group(function (){
     Route::get('/', function(Request $request){
 
-       /* $post = new \App\Models\Post();
-        $post->title = 'Mon premier article1';
+        $posts =  \App\Models\Post::paginate(1, ['id', 'title']);
+        /*$post->title = 'Mon premier article1';
         $post->slug =  'mon-premier-article1';
         $post->content =  'Mon contenu 2';
-        $post->save();*/
+        $post->save();
+        \App\Models\Post::all();
+        */
 
-        return \App\Models\Post::all();
+        return $posts;
 
     })->name('index');
 
