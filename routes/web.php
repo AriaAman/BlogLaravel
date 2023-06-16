@@ -26,11 +26,16 @@ Route::prefix('/blog')->name("blog.")->group(function (){
         $post->slug =  'mon-premier-article1';
         $post->content =  'Mon contenu 2';
         $post->save();
+        $posts->title = 'New Titre';
         \App\Models\Post::all();
         */
 
-        $posts =  \App\Models\Post::find(1);
-        $posts->title = 'New Titre';
+        $posts =  \App\Models\Post::create([
+            'title' => 'Mon nouveau titre',
+            'slug' => 'nouveau titre',
+            'content' => 'APANYAN'
+        ]);
+
         $posts->save();
 
 
