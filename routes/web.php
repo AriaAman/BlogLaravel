@@ -19,10 +19,16 @@ Route::get('/', function () {
 });
 
 Route::prefix('/blog')->name("blog.")->group(function (){
-    Route::get('', function(Request $request){
-        return [
-            "link" => \route('blog.show', ['slug' => 'article', 'id' => 5 ]),
-        ];
+    Route::get('/', function(Request $request){
+
+       /* $post = new \App\Models\Post();
+        $post->title = 'Mon premier article1';
+        $post->slug =  'mon-premier-article1';
+        $post->content =  'Mon contenu 2';
+        $post->save();*/
+
+        return \App\Models\Post::all();
+
     })->name('index');
 
     Route::get('/{slug}-{id}', function (string $slug, string $id) {
