@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Request;
-
+use App\Http\Controllers\BlogController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,44 +14,14 @@ use Illuminate\Support\Facades\Request;
 |
 */
 
-Route::get('/', function () {
+Route::get('/' , function () {
     return view('welcome');
 });
 
 Route::prefix('/blog')->name("blog.")->group(function (){
-    Route::get('/', function(Request $request){
+    Route::get('/', [BlogController::class, 'index'])->name('index');
 
-        /*$posts =  \App\Models\Post::where('id','>', 0)->limit(1)->get();*/
-        /*$post->title = 'Mon premier article1';
-        $post->slug =  'mon-premier-article1';
-        $post->content =  'Mon contenu 2';
-        $post->save();
-        $posts->title = 'New Titre';
-        \App\Models\Post::all();
-        */
-
-        /*$posts =  \App\Models\Post::create([
-            'title' => 'Mon nouveau titre',
-            'slug' => 'nouveau titre',
-            'content' => 'APANYAN'
-        ]);*/
-
-      /*  $posts->save();*/
-
-
-
-        return  \App\Models\Post::paginate(25);
-
-    })->name('index');
-
-    Route::get('/{slug}-{id}', function (string $slug, string $id) {
-        $post = \App\Models\Post::findorFail($id);
-        if ($post->slug != $slug){
-            return to_route('blog.show', ['slug' => $post ->slug, 'id'=> $post->id]);
-        }
-
-        return $post;
-    })->where([
+    Route::get('/{slug}-{id}', [BlogController::class, 'show'])->where([
         "id" => '[0-9]+',
         "slug" => '[a-zA-Z0-9\-]+'
     ])->name("show");
