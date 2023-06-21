@@ -1,6 +1,6 @@
 @extends('base')
 
-    @section('title', 'Accueil')
+    @section('title', 'Blog')
 
     @section('content')
         <h1>Mon blog</h1>

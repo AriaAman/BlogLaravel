@@ -13,10 +13,8 @@ use App\Http\Controllers\BlogController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/', [BlogController::class, 'home'])->name('welcome');
 
-Route::get('/' , function () {
-    return view('welcome');
-});
 
 Route::prefix('/blog')->name("blog.")->group(function (){
     Route::get('/', [BlogController::class, 'index'])->name('index');
