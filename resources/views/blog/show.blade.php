@@ -1,14 +1,14 @@
 @extends('base')
 
-    @section('title', $posts -> title)
+    @section('title', $post -> title)
 
     @section('content')
         <h1>Mon blog</h1>
 
             <article>
-                <h2>{{ $posts->title }}</h2>
+                <h2>{{ $post->title }}</h2>
                 <p>
-                    {{$posts->content}}
+                    {{$post->content}}
                 </p>
             </article>
 

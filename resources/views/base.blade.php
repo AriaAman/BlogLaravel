@@ -20,11 +20,17 @@
             <div class="navbar-nav">
                 <a @class(['nav-link', 'fw-bold' => request()->route()->getName() === 'welcome']) href="{{ route('welcome') }}">Home</a>
                 <a class="nav-link fw-medium @if(str_starts_with(request()->route()->getName(), 'blog'))" aria-current="page @endif " href="{{ route('blog.index') }}">Blog</a>            </div>
+            <a @class(['nav-link', 'fw-bold' => request()->route()->getName() === 'create']) href="{{ route('blog.create') }}">New</a>
         </div>
     </div>
 </nav>
 
     <div class="container">
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{session('success')}}
+            </div>
+        @endif
         @yield('content')
     </div>
 
