@@ -10,20 +10,23 @@
     <title>@yield('title')</title>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg" style="background-color: #f3a219;">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/">OneFormula</a>
+        <a class="navbar-brand" href="{{ route('welcome') }}">
+            <img class="logo" src="{{ asset('/photo/FORMULA_LOGO.jpg') }}" height="90" alt="logo Piment">
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a @class(['nav-link', 'fw-bold' => request()->route()->getName() === 'welcome']) href="{{ route('welcome') }}">Home</a>
-                <a class="nav-link fw-medium @if(str_starts_with(request()->route()->getName(), 'blog'))" aria-current="page @endif " href="{{ route('blog.index') }}">Blog</a>            </div>
-            <a @class(['nav-link', 'fw-bold' => request()->route()->getName() === 'create']) href="{{ route('blog.create') }}">New</a>
+                <a class="nav-link fw-medium @if(str_starts_with(request()->route()->getName(), 'blog'))" aria-current="page @endif " href="{{ route('blog.index') }}">Blog</a>
+            </div>
         </div>
     </div>
 </nav>
+
 
     <div class="container">
         @if(session('success'))

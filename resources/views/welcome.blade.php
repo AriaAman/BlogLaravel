@@ -3,9 +3,9 @@
 @section('title', 'Accueil')
 
 @section('content')
-    <div class="hero">
-                <video class="video" src="../video/F1Video.mp4" muted loop autoplay></video>
-        <div class="hero-content">
+    <div class="position-fixed top-0 start-0 w-100 h-100 overflow-hidden">
+        <video class="w-100 h-100 object-fit-cover" src="{{ asset('/video/F1Video.mp4') }}" muted loop autoplay></video>
+        <div class="position-absolute top-50 start-50 translate-middle text-center text-white">
             <h1 class="hero-title">Bienvenue sur OneFormula !</h1>
             <p class="hero-subtitle">Découvrez les dernières actualités, les analyses approfondies, les résumés de courses et bien plus encore.</p>
             <a href="{{ route('blog.index') }}" class="btn btn-primary">Explorer les articles</a>
