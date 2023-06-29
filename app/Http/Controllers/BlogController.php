@@ -11,6 +11,7 @@ use App\Models\User;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
@@ -53,7 +54,14 @@ class BlogController extends Controller
         ]);
     }
 
-    public function update(Post $post, FormPostRequest $request){
+    public function update(Post $post, FormPostRequest $request)
+    {
+        $data = $request ->validated();
+        dd($data);
+        /** @var UploadedFile $image */
+        /*$image = $request ->validated('image');
+        $data['image'] = $image ->store('blog', 'public');*/
+        $post ->update($data);
         $post-> update($request->validated());
         $post->tags()->sync($request ->validated('tags'));
         return redirect()

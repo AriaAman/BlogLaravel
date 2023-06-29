@@ -2,6 +2,13 @@
     @csrf
     @method($post->id ?"PATCH": "POST")
     <div class="form-group">
+        <label for="image">Image</label>
+        <input type="file" class="form-control" id="image" name="image">
+        @error("image")
+        {{$message}}
+        @enderror
+    </div>
+    <div class="form-group">
         Titre
         <input type="text" class="form-control" name="title" value="{{ old('title', $post->title) }}">
         @error("title")
