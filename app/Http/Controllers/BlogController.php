@@ -7,9 +7,11 @@ use App\Http\Requests\FormPostRequest;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
+use App\Models\User;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 
@@ -60,6 +62,12 @@ class BlogController extends Controller
     }
 
     public function index(): View {
+       /* User::create([
+            'name' => 'Jhon',
+            'email' =>'jhon@doe.fr',
+            'password' => Hash::make('0000')
+        ]);*/
+
         return view('blog.index', [
             'posts'=> Post::with('tags','category')->paginate(4)
         ]);

@@ -23,6 +23,21 @@
                 <a @class(['nav-link', 'fw-bold' => request()->route()->getName() === 'welcome']) href="{{ route('welcome') }}">Home</a>
                 <a class="nav-link fw-medium @if(str_starts_with(request()->route()->getName(), 'blog'))" aria-current="page @endif " href="{{ route('blog.index') }}">Blog</a>
             </div>
+            <div class="navbar-nav ms-auto mb-2 mb-lg-0">
+                @auth
+                    {{ \Illuminate\Support\Facades\Auth::user()->name }}
+                    <form class="nav-item" action="{{ route('auth.logout') }}" method="post">
+                        @method("delete")
+                        @csrf
+                        <button class="nav-link">Se déconnecter</button>
+                    </form>
+                @endauth
+                @guest
+                    <div class="nav-item">
+                        <a href="{{ route('auth.login') }}">Se connecter</a>
+                    </div>
+                @endguest
+            </div>
         </div>
     </div>
 </nav>
