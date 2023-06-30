@@ -13,6 +13,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 
@@ -37,8 +38,9 @@ class BlogController extends Controller
         ]);
     }
 
-    public function store(FormPostRequest $request){
-        $post = Post::create($request->validated());
+    public function store(FormPostRequest $request)
+    {
+        $post = Post::create($this->extractData(new Post(), $request));
         $post->tags()->sync($request ->validated('tags'));
         return redirect()
             ->route('blog.show', ['slug' => $post->slug, 'post' => $post ->id])
@@ -56,25 +58,29 @@ class BlogController extends Controller
 
     public function update(Post $post, FormPostRequest $request)
     {
-        $data = $request ->validated();
-        dd($data);
-        /** @var UploadedFile $image */
-        /*$image = $request ->validated('image');
-        $data['image'] = $image ->store('blog', 'public');*/
-        $post ->update($data);
-        $post-> update($request->validated());
+        $post->update($this->extractData($post, $request));
         $post->tags()->sync($request ->validated('tags'));
         return redirect()
             ->route('blog.show', ['slug' => $post->slug, 'post' => $post ->id])
             ->with('success', "L'article a bien été modifié");
     }
 
+    private function extractData(Post $post, FormPostRequest $request): array
+    {
+        $data = $request->validated();
+        /** @var UploadedFile|null $image */
+        $image = $request->validated('image');
+        if ($image === null || $image->getError()){
+            return $data;
+        }
+        if ($post->image) {
+            Storage::disk('public')->delete($post->image);
+        }
+        $data['image'] = $image->store('blog', 'public');
+        return $data;
+    }
+
     public function index(): View {
-       /* User::create([
-            'name' => 'Jhon',
-            'email' =>'jhon@doe.fr',
-            'password' => Hash::make('0000')
-        ]);*/
 
         return view('blog.index', [
             'posts'=> Post::with('tags','category')->paginate(4)

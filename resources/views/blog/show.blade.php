@@ -10,6 +10,9 @@
                 <p>
                     {{$post->content}}
                 </p>
+                @if($post->image)
+                    <img src="{{ $post->imageUrl() }}">
+                @endif
             </article>
 
     @endsection

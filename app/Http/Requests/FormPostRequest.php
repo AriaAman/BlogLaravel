@@ -29,7 +29,7 @@ class FormPostRequest extends FormRequest
             'content' => ['required'],
             'category_id' =>['required','exists:categories,id'],
             'tags' =>['array','exists:tags,id','required'],
-            'image' => ['image', 'max:2000']
+            'image' => ['image','max:100000']
         ];
     }
 

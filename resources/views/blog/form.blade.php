@@ -1,4 +1,5 @@
-<form action="" method="post">
+
+<form action="" method="post" class="vstack gap-2" enctype="multipart/form-data">
     @csrf
     @method($post->id ?"PATCH": "POST")
     <div class="form-group">

@@ -26,6 +26,9 @@
                             @endforeach
                         @endif
                     </p>
+                    @if($post->image)
+                        <img src="{{ $post->imageUrl() }}">
+                    @endif
                     {{--<p class="card-text">{{ $post->content }}</p>--}}
                     <div class="mt-auto">
                         <a href="{{ route('blog.show', ['slug' => $post->slug, 'post' => $post->id]) }}" class="btn btn-primary">Lire l'article</a>
@@ -34,7 +37,6 @@
             </div>
         @endforeach
     </div>
-
     {{$posts}}
 @endsection
 
